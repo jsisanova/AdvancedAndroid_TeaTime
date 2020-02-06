@@ -59,6 +59,7 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
         Toolbar menuToolbar = (Toolbar) findViewById(R.id.order_toolbar);
         setSupportActionBar(menuToolbar);
         getSupportActionBar().setTitle(getString(R.string.order_title));
@@ -71,8 +72,7 @@ public class OrderActivity extends AppCompatActivity {
         teaNameTextView.setText(mTeaName);
 
         // Set cost default to $0.00
-        TextView costTextView = (TextView) findViewById(
-                R.id.cost_text_view);
+        TextView costTextView = (TextView) findViewById(R.id.cost_text_view);
         costTextView.setText(getString(R.string.initial_cost));
 
         setupSizeSpinner();
@@ -281,8 +281,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void displayCost(int totalPrice) {
-        TextView costTextView = (TextView) findViewById(
-                R.id.cost_text_view);
+        TextView costTextView = (TextView) findViewById(R.id.cost_text_view);
 
         String convertPrice = NumberFormat.getCurrencyInstance().format(totalPrice);
         costTextView.setText(convertPrice);

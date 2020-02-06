@@ -38,6 +38,7 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
         Toolbar menuToolbar = (Toolbar) findViewById(R.id.menu_toolbar);
         setSupportActionBar(menuToolbar);
         getSupportActionBar().setTitle(getString(R.string.menu_title));

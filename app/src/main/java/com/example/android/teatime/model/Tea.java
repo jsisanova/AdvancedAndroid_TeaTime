@@ -19,7 +19,7 @@ package com.example.android.teatime.model;
 
 /**
  * {@link Tea} represents a tea that the user can select from the menu.
- * It contains a tea name and an associated.
+ * It contains a tea name and an associated image.
  */
 
 public class Tea {
