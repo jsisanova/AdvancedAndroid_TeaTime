@@ -20,12 +20,25 @@ package com.example.android.teatime;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+
+import static org.hamcrest.Matchers.anything;
+
+import android.support.test.espresso.Espresso;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+// https://developer.android.com/reference/android/support/test/espresso/IdlingResource.html
+// https://github.com/udacity/AdvancedAndroid_TeaTime/compare/TESP.04-Exercise-AddIdlingResourceMenuActivityTest...TESP.04-Solution-AddIdlingResourceMenuActivityTest?expand=11
+// https://github.com/android/testing-samples/blob/master/ui/espresso/IdlingResourceSample/app/src/androidTest/java/com/example/android/testing/espresso/IdlingResourceSample/ChangeTextBehaviorTest.java
+//
+// We will create a mock scenario in the app that simulates a time delay when downloading menu images and descriptions into the MenuActivity.
 
 /**
  * Usually Espresso syncs all view operations with the UI thread as well as AsyncTasks, but it can't
@@ -56,28 +69,31 @@ public class IdlingResourceMenuActivityTest {
      * complete. This rule allows you to directly access the activity during the test.
      */
     @Rule
-    public ActivityTestRule<MenuActivity> mActivityTestRule =
-            new ActivityTestRule<>(MenuActivity.class);
+    public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<>(MenuActivity.class);
 
     private IdlingResource mIdlingResource;
 
 
-    // TODO (6) Registers any resource that needs to be synchronized with Espresso before
-    // the test is run.
+    // TODO (6) Registers any resource that needs to be synchronized with Espresso before the test is run.
     @Before
     public void registerIdlingResource() {
+        mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
+        // To prove that the test fails, omit this call:
+        Espresso.registerIdlingResources(mIdlingResource);
 
     }
 
     // TODO (7) Test that the gridView with Tea objects appears and we can click a gridView item
     @Test
     public void idlingResourceTest() {
-
+        onData(anything()).inAdapterView(withId(R.id.tea_grid_view)).atPosition(0).perform(click());
     }
 
     // TODO (8) Unregister resources when not needed to avoid malfunction
     @After
     public void unregisterIdlingResource() {
-
+        if (mIdlingResource != null) {
+            Espresso.unregisterIdlingResources(mIdlingResource);
+        }
     }
 }
